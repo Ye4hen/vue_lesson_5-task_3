@@ -1,17 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <contacts-manager
+      :contactsList="contacts"
+      @add="updateContacts"
+      @searchContact="handleSearch"
+      @clear="clearFilter"
+    />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import ContactsManager from "./components/ContactsManager.vue";
+import { contacts } from "./constants/7_data_contacts";
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  components: { ContactsManager },
+  data() {
+    return {
+      contacts,
+    };
+  },
+  computed: {
+    // handleSearch() {},
+  },
+  methods: {
+    updateContacts(updatedContacts) {
+      this.contacts = updatedContacts;
+    },
+    handleSearch(filteredList) {
+      this.contacts = filteredList;
+    },
+    clearFilter() {
+      this.contacts = contacts;
+    },
+  },
+};
 </script>
 
 <style>
@@ -19,7 +42,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
   margin-top: 60px;
 }
